@@ -1,10 +1,12 @@
-import { Action, Reducer } from 'redux';
-import AppState from './AppState';
+import { Action, Reducer } from "redux";
 
-const initialState: AppState = {
+import AppState from "./AppState";
 
-};
+const initialState: AppState = {};
 
-export const rootReducer: Reducer<AppState> = (state: AppState = initialState, action: Action): AppState => {
-    return state;
+export const rootReducer: Reducer<AppState> = (
+  state: AppState = initialState,
+  action: Action
+): AppState => {
+  return state;
 };
