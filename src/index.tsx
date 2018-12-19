@@ -1,30 +1,19 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose } from 'redux';
+import * as thunkMiddleware from 'redux-thunk'
+
 import App from './App';
-import './index.css';
-import { compose, Reducer, StoreEnhancer, createStore, Store, applyMiddleware } from 'redux';
-import AppState from './AppState';
-import reducer from './reducer';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
+import * as serviceWorker from './serviceWorker';
+import { rootReducer } from './reducer';
+import { configureStore } from './configureStore';
 
-let enhancer: StoreEnhancer<AppState>;
-if (window.__REDUX_DEVTOOLS_EXTENSION__ ) {
-    enhancer = compose(
-        window.__REDUX_DEVTOOLS_EXTENSION__({
-            serialize: {
-                options: true,
-            }
-        })
-    );
-}
+const store = configureStore()
 
-const _createStore = (r: Reducer<AppState>) => enhancer ? createStore(reducer, enhancer) : createStore(reducer);
-const store: Store<AppState> = applyMiddleware(thunk)(_createStore)(reducer) as Store<AppState>;
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
-ReactDOM.render(
-    <Provider store={store} >
-        <App />
-    </Provider>,
-    document.getElementById('root') as HTMLElement
-);
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();

@@ -1,11 +1,13 @@
-import * as React from 'react';
-import './App.css';
+import React, { Component } from 'react';
 
-class App extends React.Component {
+
+import styles from './App.module.scss';
+
+class App extends Component {
   render() {
     return (
-      <div className="App">
-        your form here
+      <div className={styles.root}>
+        Your form here!
       </div>
     );
   }
